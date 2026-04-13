@@ -12,7 +12,6 @@ Creative Coding – MOSDACT La Salle Barcelona 2026
 ## Assignments
 
 **gaudi_star** — String art generative sketch in Processing (Java)  
-**particles_example** — Perlin noise particle system in p5.js  
 
 ## Class Work (Ana's Classes 1–4)
 Sketches from the first four classes: shapes, motion, brushes, collage, and landscape — all in Processing.
