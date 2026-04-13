@@ -1,4 +1,4 @@
-# 🦎 lizzie-lizzzard-stuff — Creative Coding @ LaSalle
+# lizzie-lizzzard-stuff — Creative Coding @ LaSalle
 
 **username:** lizzie-lizzzard  
 **email:** elisabethkeigler@gmail.com  
