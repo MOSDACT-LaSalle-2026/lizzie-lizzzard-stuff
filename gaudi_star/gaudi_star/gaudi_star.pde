@@ -4,6 +4,7 @@ int cx, cy; //center x , center y
 int step;   // speed, how many pixels the point moves each frame
 int leftX, rightX;
 int topY, bottomY;
+int strokeAlpha;
 
 void setup() {
   size(700, 700);
@@ -23,7 +24,7 @@ void draw() {          // this is the steps it follows to build each star, and t
 }
 
 void drawArms() {                           // this is where I define the draw amrs step
-  stroke(255, 255, 50, random(60, 140));
+  stroke(255, 255, 50, strokeAlpha);
   strokeWeight(1);
   line(leftX, cy, cx, topY);
   line(rightX, cy, cx, topY);
@@ -40,6 +41,7 @@ void advance() {              // this is where I define the advance step
 
 void restart() {
   background(0);        // ← clears everything completely first
+  strokeAlpha = int(random(60, 140));
   noStroke();
   for (int y = 0; y < height; y++) {      //making an ombre background
     float r = map(y, 0, height, 180, 80);
@@ -47,16 +49,9 @@ void restart() {
     fill(r, 0, b);
     rect(0, y, width, 1);      // filled rectangle, 1px tall, full width
   }
-  step = int(random(4, 10));
+  step = int(random(1, 10));
   leftX   = cx;
   rightX  = cx;
   topY    = 0;
   bottomY = height;
-}
-
-void mousePressed() { noLoop(); }
-void mouseReleased() { loop(); }
-void keyPressed() {
-  if (key == 'r' || key == 'R') restart();
-  if (key == 's' || key == 'S') saveFrame("gaudi_star-####.png");
 }

@@ -38,8 +38,8 @@ class Particle {
     this.vel = createVector(random(-2, 2), random(-2, 2));
     this.acc = createVector();
   //  this.size = random(5, 15);
-    this.size = 3;
-    this.color = color(random(255), random(255), random(255), 200);
+    this.size = 2;
+    this.color = color(random(255), random(255), random(255), 300);
   }
 
   move() {
