@@ -1,24 +1,18 @@
 // Brush HW 3 - morphing blob
 // remix of P_2_2_3_01 (Generative Gestaltung)
-//
-// what's from class: easing, sin() breathing, lerpColor() palette
-// new thing from the original: beginShape() + curveVertex() = smooth curve through moving points
-//
-// CONTROLS
 // click       : drop a new blob at mouse
 // r           : reset black
 // e           : reset white
 // q / w       : pause / resume
 // space       : save screenshot
 
-// --- color palette ---
 color col1 = #ff9de2;   // pink
 color col2 = #c9b8ff;   // lavender
 color col3 = #8ff0ff;   // light blue
 
 // --- blob settings ---
-int   formResolution = 15;     // how many points make up the blob
-float stepSize       = 2;      // how much each point wanders per frame
+int   formResolution = 45;     // how many points make up the blob
+float stepSize       = 1;      // how much each point wanders per frame
 float initRadius     = 120;    // starting circle radius
 
 float[] x = new float[formResolution];
@@ -44,7 +38,7 @@ void setup() {
 void draw() {
 
   // soft fading trails -- same trick as easing remix
-  fill(0, 12);
+  fill(0, 0.2);
   noStroke();
   rect(0, 0, width, height);
 
@@ -58,9 +52,9 @@ void draw() {
     y[i] += random(-stepSize, stepSize);
   }
 
-  // breathing scale -- sin() you know from Brush HW 2
+  // breathing scale -- sin() from Brush HW 2
   breathPhase += 0.018;
-  float breathScale = 1 + sin(breathPhase) * 0.25;
+  float breathScale = 1 + sin(breathPhase) * 0.5;
 
   // lerpColor palette cycling -- same as Brush HW 2
   float t  = (sin(frameCount * 0.015) + 1) / 2.0;
@@ -73,7 +67,7 @@ void draw() {
   strokeWeight(0.75);
   noFill();
 
-  // NEW THING: beginShape() + curveVertex() draws a smooth closed curve
+  // beginShape() + curveVertex() draws a smooth closed curve
   // through all the moving points -- first and last vertices are control points
   beginShape();
   curveVertex(x[formResolution-1] * breathScale + centerX,  y[formResolution-1] * breathScale + centerY);
@@ -109,7 +103,7 @@ void keyPressed() {
   if (key == 'q') { noLoop(); }
   if (key == 'w') { loop(); }
   if (key == ' ') {
-    save("screenshot" + screenshotCount + ".jpeg");
+    save("screenshotB" + screenshotCount + ".jpeg");
     screenshotCount = screenshotCount + 1;
   }
 }
