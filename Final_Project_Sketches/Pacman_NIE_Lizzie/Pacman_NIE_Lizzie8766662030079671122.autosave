@@ -1,0 +1,81 @@
+int phase = 1;      // phase == 1 --> intro screen
+                    // phase == 2 --> play the game
+                    // phase == 3 --> we have a winner
+                    // phase == 4 --> oops... appointment no longer available...
+                    // phase == 5 --> sorry you did not get the appointment
+
+int time = 0;
+PImage bg;
+
+void settings() {
+  pixelDensity(1);
+  size(2370, 1300, JAVA2D);
+}
+
+void setup() {
+  phase = 1;
+  time = 0;
+  bg = loadImage("Pacman.Background2.png");
+  initializehunt();
+}
+
+void draw() {
+  if (phase == 1) {
+    loop();
+    drawIntro();
+  }
+  if (phase == 2) {
+    huntforappointments();
+  }
+  if (phase == 3) {
+    loop();
+    drawOverlayText("Congratulations! You were able to get an appointment.\n\nPress ENTER to continue.");
+  }
+  if (phase == 4) {
+    loop();
+    drawOverlayText("We are sorry. The appointment is no longer available...\n\nPress SPACE to try again.");
+  }
+  if (phase == 5) {
+    loop();
+    drawOverlayText("Sorry you were not able to get an appointment.\n\nPress SPACE to try again.");
+  }
+}
+
+// background always fills the full screen, no calculations needed
+void drawBackground() {
+  image(bg, 0, 0, width, height);
+}
+
+void drawIntro() {
+  drawBackground();
+
+  // flashing press space at the bottom
+  if (frameCount % 60 < 30) {
+    fill(255, 220, 0);
+    textAlign(CENTER, CENTER);
+    textSize(int(width * 0.022));
+    text("PRESS SPACE TO START", width / 2, height * 0.91);
+  }
+}
+
+void drawOverlayText(String message) {
+  drawBackground();
+  fill(0, 0, 0, 200);
+  rect(0, 0, width, height);
+  fill(255, 220, 0);
+  textSize(int(width * 0.032));
+  textAlign(CENTER, CENTER);
+  text(message, width * 0.1, height * 0.35, width * 0.8, height * 0.35);
+}
+
+void mousePressed() {
+  if (gameOver) return;
+  revisecatches();
+}
+
+void keyPressed() {
+  if (key == ' ' && phase == 1) { phase = 2; loop(); }
+  if (key == ENTER && phase == 3) phase = 4;
+  if (key == ' ' && phase == 4) phase = 1;
+  if (key == ' ' && phase == 5) phase = 1;
+}
